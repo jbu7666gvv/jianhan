@@ -1,0 +1,19 @@
+local m = getrawmetatable(game)
+local o = m.__newindex
+local V = {
+    ["TOOLS"] = "工具",
+    ["INF JUMP"] = "无限跳跃",
+    ["DESYNC BODY"] = "身体不同步",
+    ["3RD FLOOR"] = "三楼",
+    ["FLY TO BASE"] = "飞往基地",
+}
+
+setreadonly(m, false)
+m.__newindex = newcclosure(function(t, k, v)
+    if k == "Text" and (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) then
+        v = V[v] or v
+    end
+    return o(t, k, v)
+end)
+setreadonly(m, true)
+loadstring(game:HttpGet("https://pastefy.app/JJVhs3rK/raw"))()
