@@ -1,0 +1,20 @@
+local m = getrawmetatable(game)
+local o = m.__newindex
+local V = {
+    ["BOOST"] = "提升",
+    ["Fly OFF"] = "飞行关闭",
+    ["FLY"] = "飞行",
+    ["Fly ON"] = "飞行开启",
+    ["Tap the FLY button to toggle flight Tap BOOST to cycle speeds"] = "点击飞行按钮切换飞行 点击提升循环速度",
+    ["Flight Controls"] = "飞行控制",
+}
+
+setreadonly(m, false)
+m.__newindex = newcclosure(function(t, k, v)
+    if k == "Text" and (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) then
+        v = V[v] or v
+    end
+    return o(t, k, v)
+end)
+setreadonly(m, true)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/396abc/Script/refs/heads/main/MobileFly.lua"))()
