@@ -1,0 +1,17 @@
+local m = getrawmetatable(game)
+local o = m.__newindex
+local V = {
+    ["Search"] = "搜索",
+    [" Search… "] = "搜索…",
+    ["This tab is empty"] = "此选项卡为空",
+    ["No results found"] = "未找到结果",
+}
+
+setreadonly(m, false)
+m.__newindex = newcclosure(function(t, k, v)
+    if k == "Text" and (t:IsA("TextLabel") or t:IsA("TextButton") or t:IsA("TextBox")) then
+        v = V[v] or v
+    end
+    return o(t, k, v)
+end)
+setreadonly(m, true)
